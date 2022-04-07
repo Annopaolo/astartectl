@@ -33,6 +33,7 @@ var HousekeepingCmd = &cobra.Command{
 
 var astarteAPIClient *client.Client
 
+// nolint:errcheck
 func init() {
 	HousekeepingCmd.PersistentFlags().StringP("housekeeping-key", "k", "",
 		"Path to housekeeping private key to generate JWT for authentication")

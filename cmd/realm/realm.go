@@ -36,6 +36,7 @@ var RealmManagementCmd = &cobra.Command{
 var realm string
 var astarteAPIClient *client.Client
 
+// nolint:errcheck
 func init() {
 	RealmManagementCmd.PersistentFlags().StringP("realm-key", "k", "",
 		"Path to realm private key used to generate JWT for authentication")
@@ -47,8 +48,8 @@ func init() {
 }
 
 func realmManagementPersistentPreRunE(cmd *cobra.Command, args []string) error {
-	viper.BindPFlag("individual-urls.realm-management", cmd.Flags().Lookup("realm-management-url"))
-	viper.BindPFlag("realm.key-file", cmd.Flags().Lookup("realm-key"))
+	_ = viper.BindPFlag("individual-urls.realm-management", cmd.Flags().Lookup("realm-management-url"))
+	_ = viper.BindPFlag("realm.key-file", cmd.Flags().Lookup("realm-key"))
 	var err error
 	astarteAPIClient, err = utils.APICommandSetup(
 		map[misc.AstarteService]string{misc.RealmManagement: "individual-urls.realm-management"}, "realm.key", "realm.key-file")
@@ -56,7 +57,7 @@ func realmManagementPersistentPreRunE(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	viper.BindPFlag("realm.name", cmd.Flags().Lookup("realm-name"))
+	_ = viper.BindPFlag("realm.name", cmd.Flags().Lookup("realm-name"))
 	realm = viper.GetString("realm.name")
 	if realm == "" {
 		return errors.New("realm is required")

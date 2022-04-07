@@ -37,6 +37,7 @@ var AppEngineCmd = &cobra.Command{
 var realm string
 var astarteAPIClient *client.Client
 
+// nolint:errcheck
 func init() {
 	AppEngineCmd.PersistentFlags().StringP("realm-key", "k", "",
 		"Path to realm private key used to generate JWT for authentication")
@@ -52,7 +53,7 @@ func init() {
 
 func appEnginePersistentPreRunE(cmd *cobra.Command, args []string) error {
 	appEngineURLOverride := viper.GetString("individual-urls.appengine")
-	viper.BindPFlag("individual-urls.realm-management", cmd.Flags().Lookup("realm-management-url"))
+	_ = viper.BindPFlag("individual-urls.realm-management", cmd.Flags().Lookup("realm-management-url"))
 	realmManagementURLOverride := viper.GetString("individual-urls.realm-management")
 	// Handle a special failure case, if realm-management is provided but appengine isn't
 	if appEngineURLOverride == "" && realmManagementURLOverride != "" {
@@ -64,14 +65,14 @@ func appEnginePersistentPreRunE(cmd *cobra.Command, args []string) error {
 		misc.RealmManagement: "individual-urls.realm-management",
 	}
 
-	viper.BindPFlag("realm.key-file", cmd.Flags().Lookup("realm-key"))
+	_ = viper.BindPFlag("realm.key-file", cmd.Flags().Lookup("realm-key"))
 	var err error
 	astarteAPIClient, err = utils.APICommandSetup(individualURLVariables, "realm.key", "realm.key-file")
 	if err != nil {
 		return err
 	}
 
-	viper.BindPFlag("realm.name", cmd.Flags().Lookup("realm-name"))
+	_ = viper.BindPFlag("realm.name", cmd.Flags().Lookup("realm-name"))
 	realm = viper.GetString("realm.name")
 	if realm == "" {
 		return errors.New("realm is required")

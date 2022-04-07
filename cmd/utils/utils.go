@@ -90,6 +90,7 @@ Would generate a token with only the desired claims for appengine and pairing.
 	RunE:      genJwtF,
 }
 
+// nolint:errcheck
 func init() {
 	genJwtCmd.Flags().StringP("private-key", "k", "", `Path to PEM encoded private key.
 Should be Housekeeping key to generate an housekeeping token, Realm key for everything else.`)

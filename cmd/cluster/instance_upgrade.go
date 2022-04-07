@@ -162,7 +162,7 @@ func instanceUpgradeF(command *cobra.Command, args []string) error {
 	// To build the original resource, kill the status field, and replace all metadata with the new metadata.
 	originalResourceBytes, err := runtimeObjectToJSON(astarteObject)
 	originalResourceJSON := map[string]interface{}{}
-	json.Unmarshal(originalResourceBytes, &originalResourceJSON)
+	_ = json.Unmarshal(originalResourceBytes, &originalResourceJSON)
 	delete(originalResourceJSON, "status")
 	delete(originalResourceJSON, "metadata")
 	originalResourceJSON["metadata"] = newResource["metadata"]

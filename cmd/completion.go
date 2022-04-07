@@ -40,6 +40,7 @@ To configure your bash shell to load completions for each session add to your .b
 source ~/bash_completion.d/astartectl
 `,
 	Run: func(cmd *cobra.Command, args []string) {
+		// nolint:errcheck
 		rootCmd.GenBashCompletion(os.Stdout)
 	},
 }
@@ -54,6 +55,7 @@ astartectl completion zsh > ~/.zsh/completion/_astartectl
 autoload -U compinit && compinit
 `,
 	Run: func(cmd *cobra.Command, args []string) {
+		// nolint:errcheck
 		rootCmd.GenZshCompletion(os.Stdout)
 	},
 }
