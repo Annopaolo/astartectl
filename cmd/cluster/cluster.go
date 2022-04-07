@@ -59,19 +59,10 @@ var (
 	kubernetesAPIExtensionsClient *apiextensions.Clientset
 	kubernetesDynamicClient       dynamic.Interface
 
-	astarteGroupResource = schema.GroupResource{
-		Group:    "api.astarte-platform.org",
-		Resource: "Astarte",
-	}
 	astarteV1Alpha1 = schema.GroupVersionResource{
 		Group:    "api.astarte-platform.org",
 		Version:  "v1alpha1",
 		Resource: "astartes",
-	}
-	crdResource = schema.GroupVersionResource{
-		Group:    "apiextensions.k8s.io",
-		Version:  "v1beta1",
-		Resource: "customresourcedefinitions",
 	}
 	astarteOperatorVersions = map[string]schema.GroupVersionResource{
 		"v1alpha1": astarteV1Alpha1,

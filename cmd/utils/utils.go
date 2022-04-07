@@ -49,14 +49,6 @@ The keypair will be saved in the current directory with names <realm_name>_priva
 	RunE:    genKeypairF,
 }
 
-var jwtTypesToClaim = map[string]string{
-	"housekeeping":     "a_ha",
-	"realm-management": "a_rma",
-	"pairing":          "a_pa",
-	"appengine":        "a_aea",
-	"channels":         "a_ch",
-}
-
 var jwtTypes = []string{"housekeeping", "realm-management", "pairing", "appengine", "channels"}
 
 var genJwtCmd = &cobra.Command{
@@ -126,15 +118,6 @@ func genKeypairF(command *cobra.Command, args []string) error {
 	savePublicPEMKey(realm+"_public.pem", publicKey)
 
 	return nil
-}
-
-func validJwtType(t string) bool {
-	for _, validType := range jwtTypes {
-		if t == validType {
-			return true
-		}
-	}
-	return false
 }
 
 func genJwtF(command *cobra.Command, args []string) error {
