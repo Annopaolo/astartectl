@@ -25,5 +25,8 @@ func GetAllBuiltinAstarteClusterProfiles() []AstarteClusterProfile {
 		// 1.0 profiles (good for 1.0 for now)
 		astarteBasicProfile10,
 		astarteBurstProfile10,
+		// 1.1 profiles (good for 1. for now)
+		astarteBasicProfile11,
+		astarteBurstProfile11,
 	}
 }
